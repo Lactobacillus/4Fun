@@ -166,24 +166,23 @@ def main(arg):
 	print('r : ', recovered)
 	print('')
 
-	if len(arg.pattern) > 0:
-
-		pattern = arg.pattern
-		lf = lfMapping(original, transformed)
-		matched = patternMatching(original, pattern, lf)
-
-	print(matched)
-	print('')
-
 	suffix = getSuffixArray(original)
 	print('suffix array : ', suffix)
 	print('')
 
-	for idx in range(matched[0], matched[1] + 1):
+	if not isinstance(arg.pattern, type(None)):
 
-		pos = len(original) - suffix[idx]
-		print('position : ', pos)
-		print(original[:pos] + ' ' + original[pos:pos + len(pattern)] + ' ' + original[pos + len(pattern):])
+		pattern = arg.pattern
+		lf = lfMapping(original, transformed)
+		matched = patternMatching(original, pattern, lf)
+		print(matched)
+		print('')
+
+		for idx in range(matched[0], matched[1] + 1):
+
+			pos = len(original) - suffix[idx]
+			print('position : ', pos)
+			print(original[:pos] + ' ' + original[pos:pos + len(pattern)] + ' ' + original[pos + len(pattern):])
 
 if __name__ == '__main__':
 
