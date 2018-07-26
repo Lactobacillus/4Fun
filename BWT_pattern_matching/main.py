@@ -4,7 +4,7 @@ import argparse
 
 argParser = argparse.ArgumentParser(description = 'pattern matching using BWT (Burrows-Wheeler Transform)')
 argParser.add_argument('-s', '--string', required = True, help = 'example : panamabananas -> smnpbnnaaaaa$a')
-argParser.add_argument('-q', '--query', required = False, help = 'string for searching')
+argParser.add_argument('-p', '--pattern', required = False, help = 'string for pattern matching')
 
 def preprocess(string):
 
@@ -134,7 +134,7 @@ def findFront(stringList, char, pos):
 
 				count = count + 1
 
-def search(string, query, lf):
+def patternMatching(string, query, lf):
 
 	stringList = list()
 
@@ -166,24 +166,24 @@ def main(arg):
 	print('r : ', recovered)
 	print('')
 
-	if len(arg.query) > 0:
+	if len(arg.pattern) > 0:
 
-		query = arg.query
+		pattern = arg.pattern
 		lf = lfMapping(original, transformed)
-		searched = search(original, query, lf)
+		matched = patternMatching(original, pattern, lf)
 
-	print(searched)
+	print(matched)
 	print('')
 
 	suffix = getSuffixArray(original)
 	print('suffix array : ', suffix)
 	print('')
 
-	for idx in range(searched[0], searched[1] + 1):
+	for idx in range(matched[0], matched[1] + 1):
 
 		pos = len(original) - suffix[idx]
 		print('position : ', pos)
-		print(original[:pos] + ' ' + original[pos:pos + len(query)] + ' ' + original[pos + len(query):])
+		print(original[:pos] + ' ' + original[pos:pos + len(pattern)] + ' ' + original[pos + len(pattern):])
 
 if __name__ == '__main__':
 
